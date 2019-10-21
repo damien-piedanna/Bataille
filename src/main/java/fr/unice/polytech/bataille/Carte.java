@@ -23,4 +23,5 @@ public enum Carte {
     public int getValue() {
         return value;
     }
+
 }
