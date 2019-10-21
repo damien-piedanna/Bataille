@@ -1,6 +1,5 @@
 package fr.unice.polytech.bataille;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class Joueur {
@@ -11,7 +10,7 @@ public class Joueur {
         this.nom = nom;
     }
 
-    public void ajouterCartes(ArrayList<Carte> nouvellesCartes) {
+    public void ajouterCarte(Carte nouvellesCarte) {
 
     }
 

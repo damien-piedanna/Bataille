@@ -1,20 +1,21 @@
 package fr.unice.polytech.bataille;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Plateau {
-    private Arbitre arbitre;
-    private ArrayList<Joueur> joueurs;
+    private ArrayList<Carte> cartesJouees;
+    private HashMap<Joueur, Carte> cartesEnJeu;
 
-    public Plateau(int nbJoueurs) {
-        for(int i = 0; i < nbJoueurs; nbJoueurs++) {
-            joueurs.add(new Joueur("Joueur " + i));
-        }
-        arbitre = new Arbitre(nbJoueurs);
+    public Plateau() {
 
     }
 
-    public void start() {
+    public ArrayList<Carte> getCartesJouees() {
+        return cartesJouees;
+    }
 
+    public HashMap<Joueur, Carte> getCartesEnJeu() {
+        return cartesEnJeu;
     }
 }
