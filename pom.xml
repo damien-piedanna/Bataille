@@ -34,7 +34,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>fr.unice.polytech.startingpoint.Main</mainClass> <!-- CHANGE ME -->
+          <mainClass>fr.unice.polytech.bataille.Main</mainClass> <!-- CHANGE ME -->
 <!--          <arguments>
             <argument>argument1</argument>
           </arguments>
