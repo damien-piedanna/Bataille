@@ -16,5 +16,17 @@ public class Jeu {
         arbitre = new Arbitre(joueurs, plateau);
     }
 
-
+    public void start() {
+        int nbPaquets = arbitre.determinerNbPaquets();
+        ArrayList<Carte> cartes = new ArrayList<>();
+        for(int i = 0; i < nbPaquets*4; i++) {
+            cartes.add(Carte.SEPT);
+            cartes.add(Carte.HUIT);
+            cartes.add(Carte.NEUF);
+            cartes.add(Carte.DIX);
+            cartes.add(Carte.AS);
+        }
+        arbitre.distribuerCartes(cartes);
+    }
+    
 }

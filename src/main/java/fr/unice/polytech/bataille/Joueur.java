@@ -7,13 +7,14 @@ import java.util.Stack;
 
 public class Joueur {
     private String nom;
+    private Plateau plateau;
     private Queue<Carte> cartes = new LinkedList<>();
 
     public Joueur(String nom) {
         this.nom = nom;
     }
 
-    public void ajouterCartes(Carte nouvelleCarte) {
+    public void ajouterCarte(Carte nouvelleCarte) {
         cartes.add(nouvelleCarte);
     }
 
