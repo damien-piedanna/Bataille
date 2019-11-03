@@ -2,20 +2,48 @@ package fr.unice.polytech.bataille;
 
 import java.util.*;
 
+/**
+ * ---------------------------------------------------------  *
+ * Bataille - SI3                                             *
+ *                                                            *
+ * @author Damien Piedanna - damien.piedanna@univ-cotedazur.fr*
+ * @author Xabi Merlo - xabi.merlo@univ-cotedazur.fr          *
+ * @version Finale                                            *
+ * ---------------------------------------------------------  *
+ */
+
+/**
+ * Classe Arbitre
+ */
 public class Arbitre {
+
+    //Attributs
     private ArrayList<Joueur> joueurs;
     private Plateau plateau;
 
 
+    /**
+     * Constructeur de la classe Arbitre
+     * @param joueurs
+     * @param plateau
+     */
     public Arbitre(ArrayList<Joueur> joueurs, Plateau plateau) {
         this.joueurs = joueurs;
         this.plateau = plateau;
     }
 
+    /**
+     * Determiner le nombre de paquets a utiliser en fonction du nombre de joueurs
+     * @return le nombre de paquets a utiliser
+     */
     public int determinerNbPaquets() {
         return Math.round((float)joueurs.size()/2);
     }
 
+    /**
+     * Distribuer les cartes aux joueurs
+     * @param cartes a distribuer
+     */
     public void distribuerCartes(ArrayList<Carte> cartes) {
         Collections.shuffle(cartes);
         int i = 0;
@@ -26,6 +54,11 @@ public class Arbitre {
         }
     }
 
+    /**
+     * Faire jouer les joueurs
+     * @param joueur
+     * @param nbBataille
+     */
     public void faireJouer(Joueur joueur, int nbBataille) {
         if(nbBataille == 0 || plateau.getJoueursEnJeu().contains(joueur)) {
             Carte carteJoue = joueur.jouerCarte();
@@ -35,6 +68,10 @@ public class Arbitre {
         }
     }
 
+    /**
+     * Definir le ou les vainqueurs du tour (ceux qui ont la plus grosse carte)
+     * @return les joueurs vainqueurs
+     */
     public ArrayList<Joueur> definirVainqueur() {
         ArrayList<Joueur> vainqueurs = new ArrayList<>();
         HashMap<Joueur, Carte> mainEnJeu = plateau.getMainEnJeu();
@@ -74,6 +111,25 @@ public class Arbitre {
                     meilleurValeurCarte = carte.getValue();
                 }
             }
+        }
+        return vainqueurs;
+    }
+
+    /**
+     * Definir le vainqueur en fonction du nombre de cartes
+     * @return les vainqueurs qui ont le plus grand nombre de cartes
+     */
+    public ArrayList<Joueur> definirVainqueurNbCartes() {
+        ArrayList<Joueur> vainqueurs = new ArrayList<>();
+        int nbCartesMax=0;
+        for (Joueur joueur : plateau.getJoueursEnJeu()){
+            int nbCartes=joueur.nbCartes();
+            if (nbCartesMax<nbCartes)
+                nbCartesMax=nbCartes;
+        }
+        for (Joueur joueur : plateau.getJoueursEnJeu()){
+            if (joueur.nbCartes()==nbCartesMax)
+                vainqueurs.add(joueur);
         }
         return vainqueurs;
     }

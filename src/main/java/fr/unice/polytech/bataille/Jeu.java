@@ -2,12 +2,31 @@ package fr.unice.polytech.bataille;
 
 import java.util.ArrayList;
 
-public class Jeu {
 
+/**
+ * ---------------------------------------------------------  *
+ * Bataille - SI3                                             *
+ *                                                            *
+ * @author Damien Piedanna - damien.piedanna@univ-cotedazur.fr*
+ * @author Xabi Merlo - xabi.merlo@univ-cotedazur.fr          *
+ * @version Finale                                            *
+ * ---------------------------------------------------------  *
+ */
+
+/**
+ * Classe Jeu
+ */
+public class  Jeu {
+
+    //Attributs
     private Plateau plateau = new Plateau();
     private Arbitre arbitre;
     private ArrayList<Joueur> joueurs;
 
+    /**
+     * Constructeur du jeu
+     * @param nbJoueurs
+     */
     public Jeu(int nbJoueurs) {
         joueurs = new ArrayList<>();
         for(int i = 0; i < nbJoueurs; i++) {
@@ -16,6 +35,17 @@ public class Jeu {
         arbitre = new Arbitre(joueurs, plateau);
     }
 
+    /**
+     * La liste des joueurs en jeu
+     * @return la liste des joueurs en jeu
+     */
+    public ArrayList<Joueur> getJoueurs() {
+        return joueurs;
+    }
+
+    /**
+     * Initialiser la partie (distribuer les cartes en fonction du nombre de joueurs)
+     */
     public void start() {
         int nbPaquets = arbitre.determinerNbPaquets();
         ArrayList<Carte> cartes = new ArrayList<>();
@@ -27,14 +57,43 @@ public class Jeu {
             cartes.add(Carte.AS);
         }
         arbitre.distribuerCartes(cartes);
-        tour();
     }
 
+    /**
+     * Enlever du jeu les joueurs qui n'ont plus de cartes
+     */
+    public void retirerJoueursSansCarte(){
+        for(int i=0;i<joueurs.size();i++) {
+            if (joueurs.get(i).nbCartes()==0){
+                joueurs.remove(i);
+                i--;
+            }
+        }
+    }
+
+    /**
+     * Afficher ce qu'il s'est passé durant le tour
+     * @param vainqueurs
+     */
+    public void afficherResultatsTour(ArrayList<Joueur> vainqueurs){
+        System.out.println("Vainqueur du tour : " + vainqueurs.get(0));
+        for(int i=0;i<plateau.getCartesJouees().size();i++) {
+            vainqueurs.get(0).ajouterCarte(plateau.getCartesJouees().remove(i));
+        }
+        for(Joueur joueur : joueurs) {
+            System.out.println(joueur+" a "+joueur.nbCartes()+" cartes.");
+        }
+    }
+
+    /**
+     * Jouer un tour
+     */
     public void tour() {
         ArrayList<Joueur> vainqueurs;
         int nbBataille = 0;
         while(true) {
             for(Joueur joueur : joueurs) {
+                if (joueur.nbCartes()>1)
                 arbitre.faireJouer(joueur, nbBataille);
             }
             vainqueurs = arbitre.definirVainqueur();
@@ -50,10 +109,18 @@ public class Jeu {
                 break;
             }
         }
-        System.out.println("Vainqueur du tour : " + vainqueurs.get(0));
-        for(Carte carte : plateau.getCartesJouees()) {
-            vainqueurs.get(0).ajouterCarte(carte);
-        }
+        afficherResultatsTour(vainqueurs);
+        retirerJoueursSansCarte();
+    }
+
+    /**
+     * Jouer un tour et définir le vainqueur en fonction du nombre de cartes
+     */
+    public void tourNbCartes(){
+        ArrayList<Joueur> vainqueurs;
+        tour();
+        vainqueurs=arbitre.definirVainqueurNbCartes();
+        joueurs=vainqueurs;
     }
 
 }
