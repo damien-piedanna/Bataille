@@ -1,9 +1,7 @@
 package fr.unice.polytech.bataille;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 public class Joueur {
     private String nom;
@@ -24,5 +22,10 @@ public class Joueur {
 
     public void QuitterPartie() {
 
+    }
+
+    @Override
+    public String toString() {
+        return nom;
     }
 }
