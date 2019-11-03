@@ -22,6 +22,7 @@ public class  Jeu {
     private Plateau plateau = new Plateau();
     private Arbitre arbitre;
     private ArrayList<Joueur> joueurs;
+    private int nbTours = 0;
 
     /**
      * Constructeur du jeu
@@ -57,6 +58,7 @@ public class  Jeu {
             cartes.add(Carte.AS);
         }
         arbitre.distribuerCartes(cartes);
+        loop();
     }
 
     /**
@@ -77,12 +79,33 @@ public class  Jeu {
      */
     public void afficherResultatsTour(ArrayList<Joueur> vainqueurs){
         System.out.println("Vainqueur du tour : " + vainqueurs.get(0));
-        for(int i=0;i<plateau.getCartesJouees().size();i++) {
-            vainqueurs.get(0).ajouterCarte(plateau.getCartesJouees().remove(i));
+        for(Carte carte : plateau.getCartesJouees()) {
+            vainqueurs.get(0).ajouterCarte(carte);
         }
+        plateau.getCartesJouees().clear();
         for(Joueur joueur : joueurs) {
             System.out.println(joueur+" a "+joueur.nbCartes()+" cartes.");
         }
+    }
+
+    /**
+     * Loop principale du jeu, effectue les tours jusqu'à trouver un vainqueur
+     */
+    public void loop() {
+        for(Joueur joueur : joueurs) {
+            System.out.println(joueur+" a "+joueur.nbCartes()+" cartes.");
+        }
+        while (nbTours <= 100 && getJoueurs().size() > 1) {
+            System.out.println("------------Tour "+nbTours+" -----------------------");
+            tour();
+            nbTours++;
+        }
+        while (getJoueurs().size() > 1){
+            System.out.println("------------Tour "+nbTours+" -----------------------");
+            tourNbCartes();
+            nbTours++;
+        }
+        System.out.println("Vainqueur de la partie : "+getJoueurs().get(0));
     }
 
     /**
@@ -93,8 +116,8 @@ public class  Jeu {
         int nbBataille = 0;
         while(true) {
             for(Joueur joueur : joueurs) {
-                if (joueur.nbCartes()>1)
-                arbitre.faireJouer(joueur, nbBataille);
+                if (joueur.nbCartes()>0)
+                    arbitre.faireJouer(joueur, nbBataille);
             }
             vainqueurs = arbitre.definirVainqueur();
             for(Joueur joueur : joueurs) {

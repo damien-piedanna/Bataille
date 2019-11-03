@@ -81,17 +81,16 @@ public class Arbitre {
             Carte carte = entry.getValue();
             slicedHand.merge(carte.getValue(), 1, Integer::sum);
         }
-        int nbJoueurBataille = 1;
-        int meilleurValeurCarte = 1;
 
         //Quelle est la meilleur valeur et combien de personne l'ont ?
+        int nbJoueurBataille = 1;
+        int meilleurValeurCarte = 1;
         for (int key : slicedHand.keySet()){
             if (slicedHand.get(key) > nbJoueurBataille) {
                 meilleurValeurCarte = key;
                 nbJoueurBataille = slicedHand.get(key);
             }
         }
-
 
         if(nbJoueurBataille > 1) { //Bataille
             for(Map.Entry<Joueur, Carte> entry : mainEnJeu.entrySet()) {
