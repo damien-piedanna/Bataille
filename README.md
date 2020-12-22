@@ -1,4 +1,10 @@
-# War
+# Bataille
 > POLYTECH ~ SI3 ~ JAVA
 
-[War](https://en.wikipedia.org/wiki/War_(card_game)) in Java
+[Bataille](https://fr.wikipedia.org/wiki/Bataille_(jeu)) en Java
+
+## Spécificités
+
+* Déroulement automatique
+* Nombre de joueurs paramétrable
+* Sans interface graphique
