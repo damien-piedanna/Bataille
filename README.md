@@ -6,5 +6,5 @@
 ## Spécificités
 
 * Déroulement automatique
-* Nombre de joueurs paramétrable
+* Nombre de joueurs paramétrables
 * Sans interface graphique
